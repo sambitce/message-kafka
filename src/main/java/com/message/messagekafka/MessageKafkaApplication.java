@@ -1,35 +1,39 @@
 package com.message.messagekafka;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.kstream.Serialized;
-import org.apache.kafka.streams.kstream.TimeWindows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.binder.kafka.streams.annotations.KafkaStreamsProcessor;
-import org.springframework.messaging.handler.annotation.SendTo;
+	
+import com.message.messagekafka.domain.ItemEventLog;
+import com.message.messagekafka.repository.ItemEventLogRepository;
+
+
 
 //import com.message.messagekafka.MessageKafkaApplication.WordCount;
 
 
 
 @SpringBootApplication
-public class MessageKafkaApplication {
+public class MessageKafkaApplication implements CommandLineRunner {
 
 	
+	@Autowired
+	ItemEventLogRepository itemRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MessageKafkaApplication.class, args);
 	}
 	
+		@Override
+	public void run(String... args ) throws Exception {
+		
+		
+		final ItemEventLog itemEventlog = new ItemEventLog(UUID.randomUUID(),"receiving",100,2000,1);
+		itemRepository.insert(itemEventlog);
+	}
 	
 	/*
 	@EnableBinding(KafkaStreamsProcessor.class)

@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Finchley.M8</spring-cloud.version>
+	<!--  	<spring-cloud.version>Finchley.M8</spring-cloud.version> -->
 	</properties>
 
 	<dependencies>
@@ -30,6 +30,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream</artifactId>
@@ -45,12 +46,7 @@
 
 		</dependency>
 		
-		<dependency>
-    <groupId>org.apache.kafka</groupId>
-    <artifactId>kafka-clients</artifactId>
-    <version>1.0.1</version>
-</dependency>
-		<dependency>
+			<dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-stream-kafka</artifactId>
 </dependency>
@@ -60,6 +56,13 @@
 			<artifactId>spring-cloud-stream-test-support</artifactId>
 			<scope>test</scope>
 		</dependency>
+		-->
+		<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-clients</artifactId>
+    <version>1.0.1</version>
+</dependency>
+	
 		
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
@@ -79,10 +82,17 @@
     
 </dependency>
 		
+    
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-cassandra</artifactId>
+		</dependency>
 		
 	</dependencies>
+	<!-- 
 	<dependencyManagement>
 		<dependencies>
+		
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -92,8 +102,11 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	-->
 	
+	 
 	<repositories>
+	 
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -102,6 +115,17 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+	
+		
+		<repository>
+        <id>spring-libs-release</id>
+        <name>Spring Releases</name>
+        <url>https://repo.spring.io/libs-release</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+		
 	</repositories>
 	
 	
