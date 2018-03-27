@@ -1,14 +1,7 @@
 package com.message.messagekafka;
 
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-	
-import com.message.messagekafka.domain.ItemEventLog;
-import com.message.messagekafka.repository.ItemEventLogRepository;
 
 
 
@@ -17,23 +10,16 @@ import com.message.messagekafka.repository.ItemEventLogRepository;
 
 
 @SpringBootApplication
-public class MessageKafkaApplication implements CommandLineRunner {
+public class MessageKafkaApplication  {
 
 	
-	@Autowired
-	ItemEventLogRepository itemRepository;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(MessageKafkaApplication.class, args);
 	}
 	
-		@Override
-	public void run(String... args ) throws Exception {
-		
-		
-		final ItemEventLog itemEventlog = new ItemEventLog(UUID.randomUUID(),"receiving",100,2000,1);
-		itemRepository.insert(itemEventlog);
-	}
+	
 	
 	/*
 	@EnableBinding(KafkaStreamsProcessor.class)

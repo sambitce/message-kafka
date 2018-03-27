@@ -4,8 +4,9 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.message.messagekafka.domain.ItemEventLog;
@@ -24,12 +25,14 @@ public class ApacheKafkaWebController {
 	ItemEventLogRepository itemRepository ; 
 	
 	
-	@GetMapping(value="/publish")
-	public String producer(@RequestParam("message") String message) {
+	@PostMapping(value="/publish" )
+	public String producer(@RequestBody ItemEventLog message) {
 		
 		/*** send is used for simple topic publishing in kafka **/ 
-	
-		kafkaSender.send(message);
+		message.setId(UUID.randomUUID());
+		ItemEventLog createdEvent = itemRepository.save(message);
+		kafkaSender.send(createdEvent);
+		
 		
 		//mySource.output().send(MessageBuilder.withPayload(message).build());
 		
@@ -43,8 +46,8 @@ public class ApacheKafkaWebController {
 		dao.itemEventlogInsert("receiving");*/
 		
 		final ItemEventLog itemEventlog = new ItemEventLog(UUID.randomUUID(),"receiving",100,1000,1);
-		itemRepository.insert(itemEventlog);
-		
+		ItemEventLog createdEvent = itemRepository.insert(itemEventlog);
+		kafkaSender.send(createdEvent);
 		return "Success" ;
 	}
 	

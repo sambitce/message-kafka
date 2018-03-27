@@ -11,13 +11,16 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+
+import com.message.messagekafka.domain.ItemEventLog;
 
 @Configuration
 @EnableKafka
 public class KafkaProducerConfig {
 
 	@Bean
-	public ProducerFactory<String,String>producerFactory(){
+	public ProducerFactory<String,ItemEventLog>producerFactory(){
 		
 		return new DefaultKafkaProducerFactory<>(produerConfigs());
 	}
@@ -27,7 +30,7 @@ public class KafkaProducerConfig {
 		
 		Map<String,Object> props = new HashMap<>() ;
 		
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.99.100:9092" );
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.99.100:29092" );
 		
 		props.put(ProducerConfig.RETRIES_CONFIG, 0);
 
@@ -37,17 +40,22 @@ public class KafkaProducerConfig {
 
 		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
 
+	/*	
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		*/
 		
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 		return props;
 		
 	}
 	
 	@Bean
-	public KafkaTemplate<String,String> kafkaTempalte(){
+	public KafkaTemplate<String,ItemEventLog> kafkaTempalte(){
 		
-		return new KafkaTemplate<String,String>(producerFactory());
+		return new KafkaTemplate<String,ItemEventLog>(producerFactory());
 	}
 }

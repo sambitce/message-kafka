@@ -30,7 +30,7 @@ public class KafkaConsumerConfig {
 		
 		Map<String,Object> props = new HashMap<>() ;
 		
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.99.100:9092" );
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.99.100:29092" );
 		
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
